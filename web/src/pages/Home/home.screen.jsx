@@ -1,7 +1,7 @@
 import React from 'react'
 import "./home.css"
 
-export function HomeScreen() {
+export function HomeScreen({ match }) {
     return (
         <div className="home-container">
             <div className="rooms-container">
@@ -16,7 +16,7 @@ export function HomeScreen() {
                         <h2>Vitórias</h2>
                     </div>
                     <div className="user-box">
-                        <h1>Joao da Silva</h1>
+                        <h1>{match.params.user}</h1>
                         <h2>6</h2>
                     </div>
                     

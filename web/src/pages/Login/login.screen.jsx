@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
-import { Redirect, Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import "./login.css"
 
 export function LoginScreen() {
     
     const [username, setUsername] = useState('')
+    const history = useHistory()
 
     function handleSubmit(e) {
         e.preventDefault()
         console.log(username)
-        return <Redirect to={`/home/${username}`}/>
+        history.push(`/home/${username}`)
     }
     
     return (
