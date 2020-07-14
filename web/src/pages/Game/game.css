@@ -1,0 +1,57 @@
+.game-container {
+    background: rgb(38, 114, 28);
+    height: 100vh;  
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+.game-container h1 {
+    display: block;
+    margin: auto;
+    font-size: 50px;
+    font-weight: bold;
+    color: rgb(34, 97, 25);
+}
+
+.game-container .card-container {
+    width: 550px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background: rgb(40, 146, 25);
+    padding: 20px;
+    border: 2px solid #FFF ;
+}
+
+.game-container .player-1 {
+    bottom: 0;
+    border-bottom: 0;
+}
+
+.game-container .player-2 {
+    top: 0;
+    border-top: 0;
+}
+
+.game-dropzone {
+    background: rgba(40, 146, 25, 0.2);
+    height: 100%;
+    width: 550px;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-dropzone h1 {
+    margin: auto;
+}
+
+.dropzone {
+    height: 50%;
+    background: #000;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
