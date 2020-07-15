@@ -36,7 +36,6 @@
 }
 
 .game-dropzone {
-    background: rgba(40, 146, 25, 0.2);
     height: 100%;
     width: 550px;
     display: flex;
@@ -49,9 +48,20 @@
 
 .dropzone {
     height: 50%;
-    background: #000;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.is-dragging-zone {
+    background: rgba(40, 146, 25, 0.2);
+}
+
+.is-dragging {
+    border: 1px dashed #FFF;
+}
+
+.is-dragging-card {
+    opacity: 0.4;
 }
