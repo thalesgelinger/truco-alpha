@@ -1,0 +1,3 @@
+# Truco server
+
+- flask run
