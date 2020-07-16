@@ -1,83 +1,90 @@
-import React from "react";
-import { useDrag, useDrop } from "react-dnd";
+import React, { useState, useEffect } from "react";
+import { useDrop } from "react-dnd";
+import socketIOClient from "socket.io-client";
 
-import { deck } from "../../assets";
 import "./game.css";
-import { useState } from "react";
+import { api } from "../../service/api";
+import { Card } from "../../components";
 
-export function GameScreen() {
+export function GameScreen({ match }) {
+
+  const [isDragging, setIsDragging] = useState(false);
+
   const [playedCard, setPlayedCard] = useState(null);
 
   const [cards, setCards] = useState([
-    "trucoBasto1",
-    "trucoBasto2",
-    "trucoBasto3",
+    "notFoundCard",
+    "notFoundCard",
+    "notFoundCard",
   ]);
 
-  const cardsOponent = ["notFoundCard", "notFoundCard", "notFoundCard"];
+  const cardsOponent = [
+      "notFoundCard", 
+      "notFoundCard", 
+      "notFoundCard"
+    ];
 
-  const [{ isDragging }, dragRef] = useDrag({
-    item: { type: "CARD" },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
+  useEffect(() => {   
+    async function getCards() {
+        const { data } = await api.get("/cards") 
+        setCards(data)
+    }
+
+    const socket = socketIOClient("http://127.0.0.1:5000");
+    socket.on("connect", (data) => {
+        getCards()
+        socket.emit('join', match.params.user)
+        
+        socket.on('play', data => {
+            console.log(data)
+        })
+
+    });
   });
 
   const [, dropRef] = useDrop({
     accept: "CARD",
-    drop(item, monitor) {
-      console.log(item);
-      console.log(monitor);
-      moveCard();
+    drop({ path }) {
+      moveCard(path);
     },
   });
 
-  function moveCard() {
-    const cardIndex = 2;
+  function moveCard(path) {
+    console.log(path)
+    
+    const socket = socketIOClient("http://127.0.0.1:5000");
 
-    const cardSelected = cards.pop(cardIndex);
+    socket.on('join', () => {
+        socket.send(path)
+    })
 
-    setPlayedCard(
-      <div>
-        <img src={deck[cardSelected]} alt="" />
-      </div>
-    );
-    setCards(cards);
+    setPlayedCard(<Card path={path}/>);
+    setCards(cards.filter(card => card !== path));
+  }
+
+  function handleDragging (status) {
+     setIsDragging(status)  
   }
 
   return (
     <div className="game-container">
       <div className="card-container player-1">
-        {cards.map((card, key) => (
-          <div className="card-box" key={key}>
-            <div
-              className={`card ${isDragging ? "is-dragging-card" : ""}`}
-              ref={dragRef}
-            >
-              <img src={deck[card]} alt="" />
-            </div>
-          </div>
-        ))}
+        {cards.map((card, key) => 
+            <Card path={card} key={key} dragging={handleDragging}/>)}
       </div>
       <div className={`game-dropzone ${isDragging ? "is-dragging-zone" : ""}`}>
-        <div className="dropzone" aria-disabled>
-        </div>
+        <div className="dropzone" aria-disabled></div>
         <h1>Room title</h1>
         <div
           className={`dropzone ${isDragging ? "is-dragging" : ""}`}
           ref={dropRef}
         >
-            {playedCard}
+          {playedCard}
         </div>
       </div>
       <div className="card-container player-2">
-        {cardsOponent.map((card, key) => (
-          <div className="card-box">
-            <div className="card">
-              <img src={deck[card]} alt="" />
-            </div>
-          </div>
-        ))}
+        {cardsOponent.map((card, key) => 
+            <Card path={card} key={key}/>)}
       </div>
     </div>
   );

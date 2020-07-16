@@ -17,12 +17,14 @@
 
 .game-container .card-container {
     width: 550px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 13%;
+    grid-template-areas: a b c;
     background: rgb(40, 146, 25);
     padding: 20px;
-    border: 2px solid #FFF ;
+    border: 2px solid #FFF;
+    grid-template-areas: a b c;
 }
 
 .game-container .player-1 {

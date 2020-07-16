@@ -10,7 +10,7 @@ function App() {
       <Switch>
         <Route path="/" component={LoginScreen} exact />
         <Route path="/home/:user" component={HomeScreen} exact />
-        <Route path="/game/:user" component={GameScreen} exact />
+        <Route path="/game/:room/:user" component={GameScreen} exact />
       </Switch>
     </DndProvider>
   );

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { api } from "../../service/api";
 import "./login.css"
 
 export function LoginScreen() {
@@ -7,9 +8,12 @@ export function LoginScreen() {
     const [username, setUsername] = useState('')
     const history = useHistory()
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
         console.log(username)
+        await api.post("/user", { 
+            username
+        }) 
         history.push(`/home/${username}`)
     }
     

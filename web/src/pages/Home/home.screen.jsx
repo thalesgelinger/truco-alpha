@@ -6,15 +6,17 @@ export function HomeScreen({ match }) {
 
     const history = useHistory()
 
+    const chossedRoom = "room-1"
+
     function openGameRoom() {
-        history.push(`/game/${match.params.user}`)
+        history.push(`/game/${chossedRoom}/${match.params.user}`)
     }
 
     return (
         <div className="home-container">
             <div className="rooms-container">
                 <div className="room" onClick={openGameRoom}>
-                    <h1>Sala 01</h1>
+                    <h1>{chossedRoom}</h1>
                 </div>
             </div>
             <div className="ranking-container">
