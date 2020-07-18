@@ -20,15 +20,14 @@ def give_cards():
         "trucoBasto3"
     ])
 
-@socketio.on('join')
-def join_room(data):
-    print(data)
-    emit('play', data)
-    
+@socketio.on("connect")
+def on_connect():
+    print('User Connected')
+
 @socketio.on('leaveCard')
-def leave_card(card):
-    print(card)
-    emit('play', card)
+def leave_card(data):
+    print(data)
+    emit('play', data, broadcast=True)
 
 if __name__ == '__main__':
     socketio.run(app)

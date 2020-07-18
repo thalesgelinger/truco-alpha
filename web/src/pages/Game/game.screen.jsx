@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDrop } from "react-dnd";
-import socketIOClient from "socket.io-client";
+import io from "socket.io-client";
 
 import "./game.css";
 import { api } from "../../service/api";
 import { Card } from "../../components";
+
+const socket = io.connect("http://localhost:5000")
 
 export function GameScreen({ match }) {
 
@@ -12,17 +14,19 @@ export function GameScreen({ match }) {
 
   const [playedCard, setPlayedCard] = useState(null);
 
+  const [oponentPlayedCard, setOponentPlayedCard] = useState(null);
+
   const [cards, setCards] = useState([
     "notFoundCard",
     "notFoundCard",
     "notFoundCard",
   ]);
 
-  const cardsOponent = [
+  const [cardsOponent, setCardsOponent] = useState([
       "notFoundCard", 
       "notFoundCard", 
       "notFoundCard"
-    ];
+    ]);
 
   useEffect(() => {   
     async function getCards() {
@@ -30,16 +34,24 @@ export function GameScreen({ match }) {
         setCards(data)
     }
 
-    const socket = socketIOClient("http://127.0.0.1:5000");
-    socket.on("connect", (data) => {
-        getCards()
-        socket.emit('join', match.params.user)
-        
-        socket.on('play', data => {
-            console.log(data)
-        })
+    getCards()
 
-    });
+    socket.on('play', (data) => {
+
+      console.log(data)
+
+      const { user, card } = data
+
+      if(user === match.params.user) {
+        setPlayedCard(<Card path={card.name}/>);
+        setCards(cards.filter(card => card !== card.name));
+      }
+      else if (user !== match.params.user) {
+        setOponentPlayedCard(<Card path={card.name}/>);
+        setCardsOponent(cardsOponent.filter( (item, index) => index !== card.id))
+      }
+    })
+
   });
 
   const [, dropRef] = useDrop({
@@ -49,17 +61,14 @@ export function GameScreen({ match }) {
     },
   });
 
-  function moveCard(path) {
-    console.log(path)
-    
-    const socket = socketIOClient("http://127.0.0.1:5000");
-
-    socket.on('join', () => {
-        socket.send(path)
+  function moveCard(cardName) {
+    socket.emit('leaveCard', {
+      user: match.params.user,
+      card: {
+        "id" : cards.findIndex((card) => cardName === card),
+        "name": cardName
+      },
     })
-
-    setPlayedCard(<Card path={path}/>);
-    setCards(cards.filter(card => card !== path));
   }
 
   function handleDragging (status) {
@@ -73,7 +82,9 @@ export function GameScreen({ match }) {
             <Card path={card} key={key} dragging={handleDragging}/>)}
       </div>
       <div className={`game-dropzone ${isDragging ? "is-dragging-zone" : ""}`}>
-        <div className="dropzone" aria-disabled></div>
+        <div className="dropzone" aria-disabled>
+          {oponentPlayedCard}
+        </div>
         <h1>Room title</h1>
         <div
           className={`dropzone ${isDragging ? "is-dragging" : ""}`}
