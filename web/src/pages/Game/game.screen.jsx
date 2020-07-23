@@ -16,6 +16,8 @@ export function GameScreen({ match }) {
 
   const [oponentPlayedCard, setOponentPlayedCard] = useState(null);
 
+  const [cardsGet, setCartsGet] = useState(false);
+
   const [cards, setCards] = useState([
     "notFoundCard",
     "notFoundCard",
@@ -28,23 +30,30 @@ export function GameScreen({ match }) {
       "notFoundCard"
     ]);
 
-  useEffect(() => {   
-    async function getCards() {
-        const { data } = await api.get("/cards") 
-        setCards(data)
+
+  async function getCards() {
+    const { data } = await api.get("/cards") 
+    setCards(data)
+  }
+
+  async function getCardsIfNeeded() {
+    if (!cardsGet) {
+      getCards()
+      setCartsGet(true)
     }
+  }
 
-    getCards()
+  useEffect(() => {   
 
+    getCardsIfNeeded()
+    
     socket.on('play', (data) => {
-
-      console.log(data)
 
       const { user, card } = data
 
       if(user === match.params.user) {
         setPlayedCard(<Card path={card.name}/>);
-        setCards(cards.filter(card => card !== card.name));
+        setCards(cards.filter((item, index) => index !== card.id));
       }
       else if (user !== match.params.user) {
         setOponentPlayedCard(<Card path={card.name}/>);
