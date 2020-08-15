@@ -47,4 +47,5 @@ export const icons = {
     "arrow" : require('./icons/arrow_forward_ios-24px.svg'),
     "cancel" : require('./icons/cancel-24px.svg'),
     "check" : require('./icons/check-24px.svg'),
+    "search" : require('./icons/search-24px.svg'),
 }
