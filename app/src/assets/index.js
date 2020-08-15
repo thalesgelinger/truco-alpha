@@ -41,3 +41,10 @@ export const deck = {
     "trucoOuro11": require('./img-cards/truco-ouro-11.jpg'),
     "trucoOuro12": require('./img-cards/truco-ouro-12.jpg'),
 }
+
+export const icons = {
+    "person" : require('./icons/person-24px.svg'),
+    "arrow" : require('./icons/arrow_forward_ios-24px.svg'),
+    "cancel" : require('./icons/cancel-24px.svg'),
+    "check" : require('./icons/check-24px.svg'),
+}
