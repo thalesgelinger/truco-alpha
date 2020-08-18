@@ -1,0 +1,54 @@
+.request-wainting-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.75);
+}
+
+.request-wainting-container .request-box {
+    min-width: 360px;
+    min-height: 200px;
+    background: #9ED3A0;
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 250px;
+}
+
+.request-wainting-container .request-box .options-box {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.request-wainting-container .request-box .options-box button {
+    outline: none;
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    width: 192px;
+}
+
+.request-wainting-container .request-box .options-box .cancel {
+    background: #B50000;
+}
+
+.request-wainting-container .request-box .options-box .accept {
+    background: #00FF0A;;
+}
+
+.request-wainting-container .request-box .options-box img {
+    width: 50px;
+    height: 50px;
+}

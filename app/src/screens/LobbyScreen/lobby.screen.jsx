@@ -2,9 +2,14 @@ import React from 'react'
 import { icons } from '../../assets'
 
 import './lobby.css'
+import { GameRequest, GameRequestWaiting } from '../../components'
 
 export function LobbyScreen() {
     
+    const gameRequest = true
+
+    const gameRequestWaiting = true
+
     const onlineUsers = [
         {
             "name": "User 1",
@@ -32,6 +37,8 @@ export function LobbyScreen() {
                     <div className={`status ${status}`}></div>
                 </div>
             )}
+            {/* {gameRequest && <GameRequest />} */}
+            {/* {gameRequestWaiting && <GameRequestWaiting />} */}
         </div>
     )
 }
