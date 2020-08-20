@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { icons } from '../../assets'
 
 import './lobby.css'
-import { GameRequest, GameRequestWaiting } from '../../components'
+import { GameRequestModal, Spinner } from '../../components'
 
 export function LobbyScreen() {
     
-    const gameRequest = true
+    const [makePlayRequest, setMakePlayRequest] = useState(false)
 
-    const gameRequestWaiting = true
+    const [waitingPlayRequest, setWaitingPlayRequest] = useState(false)
 
     const onlineUsers = [
         {
@@ -37,8 +37,26 @@ export function LobbyScreen() {
                     <div className={`status ${status}`}></div>
                 </div>
             )}
-            {/* {gameRequest && <GameRequest />} */}
-            {/* {gameRequestWaiting && <GameRequestWaiting />} */}
+            {makePlayRequest && <GameRequestModal>
+                <h2>User 1 quer jogar, aceita?</h2>
+                <div className="options-box">
+                    <button className="cancel">
+                        <img src={icons.cancel} alt=""/>
+                    </button>
+                    <button className="accept">
+                        <img src={icons.check} alt=""/>
+                    </button>
+                </div> 
+            </GameRequestModal>}
+
+            {waitingPlayRequest && <GameRequestModal height="300px">
+                <h2>Aguardando User 2...</h2>
+                <Spinner />
+                <button className="cancel">
+                    <img src={icons.cancel} alt=""/>
+                </button>
+            </GameRequestModal>}
+
         </div>
     )
 }

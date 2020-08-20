@@ -22,15 +22,12 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    color: #FFFFFF;
 }
 
-.request-container .request-box .options-box {
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
-}
 
-.request-container .request-box .options-box button {
+
+.request-container button {
     outline: none;
     border: 2px solid #000000;
     box-sizing: border-box;
@@ -40,15 +37,31 @@
     height: 60px;
 }
 
-.request-container .request-box .options-box .cancel {
+.options-box {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.options-box button {
+    outline: none;
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    width: 108px;
+    height: 60px;
+}
+
+.cancel {
     background: #B50000;
 }
 
-.request-container .request-box .options-box .accept {
+.accept {
     background: #00FF0A;
 }
 
-.request-container .request-box .options-box img {
+.request-container img {
     height: 50px;
     width: 50px;
 }

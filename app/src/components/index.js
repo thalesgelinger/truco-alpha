@@ -1,2 +1,2 @@
-export { GameRequest } from './GameRequest/gamerequest.component'
-export { GameRequestWaiting } from './GameRequestWaiting/gamerequestwaiting.component'
+export { GameRequestModal } from './GameRequestModal/game-request-modal.component'
+export { Spinner } from './Spinner/spinner.component'
