@@ -1,0 +1,9 @@
+.hand-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "a b c";
+    gap: 10px;
+    border: 1px solid #ffffff;
+    padding: 10px;
+    width: 100%;
+}
