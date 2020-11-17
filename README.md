@@ -1,1 +1,3 @@
 # truco
+
+- flask run
