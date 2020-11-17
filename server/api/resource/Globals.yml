@@ -1,0 +1,26 @@
+Globals:
+    print-status: True
+    api:
+        host: https://truco-gauderio-api.herokuapp.com
+        name: TrucoApi
+        info:
+            host: truco-gauderio-api.herokuapp.com
+            schemes: [https]
+            title: Truco Api
+            version: 0.0.1
+            description: This is a multiplayer Truco api.
+            terms-of-service: http://swagger.io/terms/
+            contact:
+                name: Tales Gelinger and Samuel Jansen
+                email: thales.gelinger@cwi.com.br, samuel.jansenn@gmail.com
+            license:
+                name: Apache 2.0 / MIT License
+                url: http://www.apache.org/licenses/LICENSE-2.0.html
+        extension: yml
+    python:
+        version: 3.8
+    local-config:
+        database:
+            key: DATABASE_URL
+            value:
+            command: set DATABASE_URL=postgres://
